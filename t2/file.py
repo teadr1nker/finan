@@ -17,6 +17,7 @@ def analyse(path, i=0):
     axis[i, 0].plot(sma200)
     axis[i, 0].legend([path, '50', '200'])
     axis[i, 0].set_title(f'SMA {path}')
+    axis[i, 0].set_ylabel('Price')
 
     # Bollinger lines
 
@@ -28,6 +29,7 @@ def analyse(path, i=0):
     axis[i, 1].plot(upper)
     axis[i, 1].legend([path, 'bottom', 'upper'])
     axis[i, 1].set_title(f'Bollinger bands {path}')
+    axis[i, 1].set_ylabel('Price')
 
     # RSI
     profit = df['Close'].diff(1)
@@ -47,8 +49,6 @@ def analyse(path, i=0):
     axis[i, 2].plot(np.ones(len(df)) * 70)
     axis[i, 2].set_title(f'RSI {path}')
     axis[i, 2].legend([path, 'RSI', '30 line', '50 line', '70 line'])
-
-    i += 1
 
 
 analyse('AMD3Y.csv')

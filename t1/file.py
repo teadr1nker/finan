@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import scipy as sp
 
+
 def analyse(x, name):
     print('\n', name)
     figure, axis = plt.subplots(1, 3)
@@ -25,6 +26,7 @@ def analyse(x, name):
     axis[1].set_xlabel(f'shapiro pvalue: {round(res.pvalue, 5)}\nkstest pvalue: {round(res2.pvalue, 5)}')
     plt.show()
     print(res)
+
 
 path = 'datasets/'
 files = []

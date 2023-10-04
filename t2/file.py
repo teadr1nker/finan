@@ -5,9 +5,10 @@ import numpy as np
 
 figure, axis = plt.subplots(2, 3)
 
+
 def analyse(path, i=0):
     df = pd.read_csv(path, delimiter=',')
-    print(df.describe())
+
     # SMA
     axis[i, 0].plot(df['Close'])
 
@@ -19,10 +20,13 @@ def analyse(path, i=0):
     axis[i, 0].set_title(f'SMA {path}')
     axis[i, 0].set_ylabel('Price')
 
-    # Bollinger lines
+    # Profit std
+    sigma = np.std(df['Close'].diff(1), ddof=1)
+    print(f'sigma {path}: {sigma}')
 
-    upper  = df['Close'].rolling(window=100).mean() + df['Close'].rolling(window=100).std()
-    bottom = df['Close'].rolling(window=100).mean() - df['Close'].rolling(window=100).std()
+    # Bollinger lines
+    upper  = df['Close'].rolling(window=50).mean() + df['Close'].rolling(window=50).std() * 2
+    bottom = df['Close'].rolling(window=50).mean() - df['Close'].rolling(window=50).std() * 2
 
     axis[i, 1].plot(df['Close'])
     axis[i, 1].plot(bottom)
@@ -43,7 +47,7 @@ def analyse(path, i=0):
     RSI = 100 - (100 / (1.0 + rs))
 
     axis[i, 2].plot(df['Close'] / df['Close'].max() * 100)
-    axis[i, 2].plot(RSI)
+    axis[i, 2].plot(RSI, color='r')
     axis[i, 2].plot(np.ones(len(df)) * 30)
     axis[i, 2].plot(np.ones(len(df)) * 50)
     axis[i, 2].plot(np.ones(len(df)) * 70)
